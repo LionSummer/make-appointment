@@ -18,9 +18,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "http": "node http.js",
-    "test": "mocha test/testApi.js",
-    "stop": ""
+    "http": "node http.js"
   },
   "ci": {
     "version": "10"

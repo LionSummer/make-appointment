@@ -115,71 +115,53 @@ function isInTimeQuantum(date, hours){
 let getOptionals = function (date){
 	
 	let selectDate = null;
-	if(date){
-		selectDate = new Date(date).toLocaleDateString();
-	}
+	try{
+		if(date){
+			selectDate = new Date(date).toLocaleDateString();
+		}
 
-    //console.log('=getOptionals==> curDate =', selectDate);
-	let runList = [];
-	/*for(let key in g_AllOptionals){
-		if(key == undefined){ continue;}
+	    //console.log('=getOptionals==> curDate =', selectDate);
 
-		let info = g_AllOptionals[key];
-		if(info.isSelect == false){ continue;}
-
-		/// 刷选指定日期的
-		if(curDate != null){
-			/// 是否存在指定的日期
-		if(key.indexOf(curDate) < 0){ continue;}
-
-			let keyList = key.split('-');
-			if(curDate === keyList[0]+'-'+keyList[1]+'-'+keyList[2]){
-				runList.push(info);
+		let runList = {};
+		if(selectDate != null){
+			let dayOption = g_AllOptionals[selectDate];
+			if(dayOption == undefined){
+				return [];
 			}
 
-			continue;
-		}
-
-		/// 反之刷选全部的
-		runList.push(info);
-	}*/
-
-	runList = {};
-	if(selectDate != null){
-		let dayOption = g_AllOptionals[selectDate];
-		if(dayOption == undefined){
-			return [];
-		}
-
-		let objList = [];
-		for(let dKey in dayOption){
-			let info = dayOption[dKey];
-
-			if(info.isSelect == false){ continue;}
-			//objList[dKey] = info;
-			objList.push(info);
-		}
-		runList[selectDate] = objList;
-	}
-	else{
-		for(let key in g_AllOptionals){
-			if(key == undefined){ continue;}
-
-			let dayOption = g_AllOptionals[key];
-			
-			let objList = [];//{};
+			let objList = [];
 			for(let dKey in dayOption){
 				let info = dayOption[dKey];
 
 				if(info.isSelect == false){ continue;}
 				//objList[dKey] = info;
-
 				objList.push(info);
 			}
-			runList[key] = objList;
+			runList[selectDate] = objList;
 		}
+		else{
+			for(let key in g_AllOptionals){
+				if(key == undefined){ continue;}
+
+				let dayOption = g_AllOptionals[key];
+				
+				let objList = [];//{};
+				for(let dKey in dayOption){
+					let info = dayOption[dKey];
+
+					if(info.isSelect == false){ continue;}
+					//objList[dKey] = info;
+
+					objList.push(info);
+				}
+				runList[key] = objList;
+			}
+		}
+		return runList;
+	}catch(err){
+		console.error('===getOptionals==> err = ', err);
+		return;		
 	}
-	return runList;
 }
 
 /// 获取时间段内已选的次数

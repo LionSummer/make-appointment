@@ -28,8 +28,15 @@ let handle = function (req, res) {
         //=>问号传递的信息都在QUERY中存储着
         let {seleDate = ''} = query;
 
+        let returnVal = {code: 200, message: 'OK'};
        	let runData = Main.getOptionals(seleDate);
-        let returnVal = {code: 0, message: 'OK', data:runData};
+        if(runData == null){
+            returnVal.code = 400;
+            returnVal.message = 'SystemErr';
+        }
+        else{
+            returnVal.data = runData;
+        }
         repResult(res, returnVal);
         return ;
     }

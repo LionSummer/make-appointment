@@ -81,7 +81,7 @@ function createOptionalData(dateStr, totalDay){
 }
 
 let curDateStr = new Date().toLocaleDateString();
-g_AllOptionals = createOptionalData(curDateStr, 2);
+g_AllOptionals = createOptionalData(curDateStr, endDay);
 
 //console.log('====>g_AllOptionals = ', g_AllOptionals['2020-2-11'])
 function isInTimeQuantum(date, hours){
